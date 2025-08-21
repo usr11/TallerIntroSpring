@@ -1,4 +1,7 @@
-<%--
+<%@ page import="org.example.app.AppContext" %>
+<%@ page import="org.example.service.VehicleService" %>
+<%@ page import="org.example.service.DriverService" %>
+<%@ page import="org.example.model.Driver" %><%--
   Created by IntelliJ IDEA.
   User: 1108559698
   Date: 20/08/2025
@@ -20,7 +23,17 @@
     <input type="text" placeholder="Marca" name="brand" required><br><br>
     <input type="number" placeholder="Modelo" name="model" min="1900" max="2030" required><br><br>
 
-    <!--Mensajes de error-->
+    <%
+
+      DriverService driverService =  AppContext.getInstance().getBean("driverService", DriverService.class);
+
+      out.println("<select name='driverId' required>");
+      for(Driver driver : driverService.getDrivers()){
+        out.println("<option value='" + driver.getId() + "'>" + driver.getName() + "</option>");
+      }
+      out.println("</select><br><br>");
+
+    %>
     <%
 
       String message = (String) request.getAttribute("message");

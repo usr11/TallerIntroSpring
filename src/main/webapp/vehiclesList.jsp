@@ -25,6 +25,7 @@
             out.println("<p>Numero de motor: "+ vehicle.getEngineNumber() + " </p>");
             out.println("<p>Marca: "+ vehicle.getBrand() + " </p>");
             out.println("<p>Modelo: "+ vehicle.getModel() + " </p>");
+            out.println("<p>ID del conductor: "+ vehicle.getDriverId() + " </p>");
 
 
             out.println("</li>");

@@ -35,13 +35,16 @@ public class AddVehicleServlet extends HttpServlet {
         String engineNumber = req.getParameter("engineNumber");
         String brand = req.getParameter("brand");
         String modelStr = req.getParameter("model");
+        String driverId = req.getParameter("driverId");
 
         if (licensePlate == null || licensePlate.trim().isEmpty() ||
                 cylinderSizeStr == null || cylinderSizeStr.trim().isEmpty() ||
                 fuelType == null || fuelType.trim().isEmpty() ||
                 engineNumber == null || engineNumber.trim().isEmpty() ||
                 brand == null || brand.trim().isEmpty() ||
-                modelStr == null || modelStr.trim().isEmpty()) {
+                modelStr == null || modelStr.trim().isEmpty() ||
+                driverId == null || driverId.trim().isEmpty()
+        ) {
 
             req.setAttribute("message", "Todos los campos son obligatorios");
             req.setAttribute("messageType", "error");
@@ -62,7 +65,7 @@ public class AddVehicleServlet extends HttpServlet {
         }
 
 
-        boolean response = vehicleService.addVehicle(new Vehicle(null, licensePlate.trim(), cylinderSize, fuelType.trim(), engineNumber.trim(), brand.trim(), model, "a"));
+        boolean response = vehicleService.addVehicle(new Vehicle(null, licensePlate.trim(), cylinderSize, fuelType.trim(), engineNumber.trim(), brand.trim(), model, driverId.trim()));
 
         if(response){
             req.setAttribute("message", "Vehículo agregado exitosamente");
