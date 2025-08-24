@@ -17,5 +17,21 @@
     <button>Buscar</button>
 </form>
 
+<%
+
+    String messageType = (String) request.getAttribute("messageType");
+    String message = (String)request.getAttribute("message");
+
+    if(messageType != null && message != null){
+        if(messageType.equals("success")){
+            out.println("<h4 style='color:green'>"+message+"</h4>");
+        } else {
+            out.println("<h4 style='color:red'>"+message+"</h4>");
+        }
+    }
+
+
+%>
+
 </body>
 </html>

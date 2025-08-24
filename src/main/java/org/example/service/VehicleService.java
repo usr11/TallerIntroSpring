@@ -38,4 +38,10 @@ public class VehicleService {
     public Vehicle getVehicleByLicensePlate(String licensePlate) {
         return vehicleRepository.getVehicleByLicensePlate(licensePlate);
     }
+
+    public boolean deleteVehicleByLicensePlate(String licensePlate){
+
+        return vehicleRepository.deleteVehicleByLicensePlate(licensePlate);
+
+    }
 }

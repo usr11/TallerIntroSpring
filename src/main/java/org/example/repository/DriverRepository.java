@@ -3,6 +3,7 @@ package org.example.repository;
 import org.example.model.Driver;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class DriverRepository {
 
@@ -17,8 +18,15 @@ public class DriverRepository {
     }
 
     //Agregar un conductor
-    public void addDriver(Driver driver) {
-        drivers.add(driver);
+    public boolean addDriver(Driver newDriver) {
+        newDriver.setId(UUID.randomUUID().toString());
+        for(Driver driver: drivers){
+            if(driver.equals(newDriver)||driver.getIdentificationNumber().equals(newDriver.getIdentificationNumber())){
+                return false;
+            }
+        }
+        drivers.add(newDriver);
+        return true;
     }
 
 

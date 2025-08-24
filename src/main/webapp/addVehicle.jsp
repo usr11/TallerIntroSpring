@@ -34,22 +34,24 @@
       out.println("</select><br><br>");
 
     %>
-    <%
 
-      String message = (String) request.getAttribute("message");
-      String messageType = (String) request.getAttribute("messageType");
-      if(message != null){
-
-        if(messageType.equals("error")){
-          out.println("<div style='color:red'>"+message+"</div>");
-        } else {
-          out.println("<div style='color:green'>"+message+"</div>");
-        }
-
-      }
-    %>
 
     <button type="submit">Registrar</button>
   </form>
+
+  <%
+
+    String message = (String) request.getAttribute("message");
+    String messageType = (String) request.getAttribute("messageType");
+    if(message != null){
+
+      if(messageType.equals("error")){
+        out.println("<div style='color:red'>"+message+"</div>");
+      } else {
+        out.println("<div style='color:green'>"+message+"</div>");
+      }
+
+    }
+  %>
 </body>
 </html>

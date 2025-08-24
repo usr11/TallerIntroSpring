@@ -22,13 +22,12 @@ public class AddVehicleServlet extends HttpServlet {
         vehicleService = AppContext.getInstance().getBean("vehicleService", VehicleService.class);
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/addVehicle.jsp").forward(req, resp); // o la ruta correcta de tu JSP
-    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+
+        //Simplificar esto, como a el de driver
         String licensePlate = req.getParameter("licensePlate");
         String cylinderSizeStr = req.getParameter("cylinderSize");
         String fuelType = req.getParameter("fuelType");
@@ -65,18 +64,15 @@ public class AddVehicleServlet extends HttpServlet {
         }
 
 
-        boolean response = vehicleService.addVehicle(new Vehicle(null, licensePlate.trim(), cylinderSize, fuelType.trim(), engineNumber.trim(), brand.trim(), model, driverId.trim()));
+        boolean serviceResponse = vehicleService.addVehicle(new Vehicle(null, licensePlate.trim(), cylinderSize, fuelType.trim(), engineNumber.trim(), brand.trim(), model, driverId.trim()));
 
-        if(response){
-            req.setAttribute("message", "Vehículo agregado exitosamente");
-            req.setAttribute("messageType", "success");
-        } else {
-            req.setAttribute("message", "El vehículo ya existe o no se pudo registrar");
-            req.setAttribute("messageType", "error");
-        }
+        req.setAttribute("messageType", serviceResponse ? "success" : "error");
+        req.setAttribute("message", serviceResponse ? "Vehículo agregado exitosamente" : "Error al agregar vehículo");
 
+
+        req.getRequestDispatcher("/addVehicle.jsp").forward(req, resp);
 
         //resp.sendRedirect("vehicles");
-        doGet(req, resp);
+
     }
 }

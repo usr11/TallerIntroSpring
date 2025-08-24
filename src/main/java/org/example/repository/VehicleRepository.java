@@ -44,12 +44,14 @@ public class VehicleRepository {
     }
 
     //Eliminar vehículo por placa
-    public void deleteVehicleByLicensePlate(String licensePlate) {
+    public boolean deleteVehicleByLicensePlate(String licensePlate) {
         for (Vehicle vehicle : vehicles) {
             if (vehicle.getLicensePlate().equals(licensePlate)) {
                 vehicles.remove(vehicle);
+                return true;
             }
         }
+        return false;
     }
 
     public void initRepo(){

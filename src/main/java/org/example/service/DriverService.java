@@ -19,4 +19,8 @@ public class DriverService {
     public ArrayList<Driver> getDrivers(){
         return driverRepository.getDrivers();
     }
+
+    public boolean addDriver(Driver driver){
+        return driverRepository.addDriver(driver);
+    }
 }

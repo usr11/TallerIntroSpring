@@ -14,13 +14,13 @@
 <body>
     <h1>Sistema de gestión de estacionamiento</h1>
 
-    <a href="vehiclesList" >Lista de todos los vehículos</a><br><br>
-    <a href="vehicleByLicensePlate" >Buscar vehículo por placa</a><br><br>
-    <a href="#" >Eliminar un vehículo por placa</a><br><br>
-    <a href="#" >Agregar un conductor</a><br><br>
-    <a href="addVehicle" >Agregar un vehículo</a><br><br>
-    <a href="driverAndVehicleList" >Lista de todos los conductores con todos sus vehículos</a><br><br>
-    <a href="#" >Buscar vehículos de un conductor por cedula</a><br><br>
+    <a href="vehiclesList.jsp" >Lista de todos los vehículos</a><br><br>
+    <a href="vehicleByLicensePlate.jsp" >Buscar vehículo por placa</a><br><br>
+    <a href="deleteVehicleByLicensePlate.jsp" >Eliminar un vehículo por placa</a><br><br>
+    <a href="addDriver.jsp" >Agregar un conductor</a><br><br>
+    <a href="addVehicle.jsp" >Agregar un vehículo</a><br><br>
+    <a href="driverAndVehicleList.jsp" >Lista de todos los conductores con todos sus vehículos</a><br><br>
+    <a href="vehiclesByDriverIdentificationServlet.jsp" >Buscar vehículos de un conductor por cedula</a><br><br>
 
 </body>
 </html>
