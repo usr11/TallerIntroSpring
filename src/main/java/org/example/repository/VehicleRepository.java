@@ -8,17 +8,32 @@ import java.util.ArrayList;
 
 public class VehicleRepository {
 
-    //IMPORTANTE !!!!!!!!!!!!!!!!!!!!
-    //Mejorar el acceso a la lista de vehículos
+
     private ArrayList<Vehicle> vehicles = new ArrayList<>();
 
-    //Obtener todos los vehículos
+
+
     public ArrayList<Vehicle> getVehicles() {
         return vehicles;
     }
 
 
-    //Obtener vehículo por placa
+
+    public void addVehicle(Vehicle newVehicle) {
+
+        vehicles.add(newVehicle);
+
+    }
+
+    public boolean existsByLicensePlate(String licensePlate){
+        for (Vehicle vehicle: vehicles){
+            if(vehicle.getLicensePlate().equals(licensePlate)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Vehicle getVehicleByLicensePlate(String licensePlate) {
 
         for (Vehicle vehicle : vehicles) {
@@ -30,29 +45,12 @@ public class VehicleRepository {
     }
 
 
-    //Ver si es agregar vehiculo nuevo o si el vehiculo ya existe y no tiene conductor agregarlo
-    public boolean addVehicle(Vehicle newVehicle) {
-        newVehicle.setId(UUID.randomUUID().toString());
-        for (Vehicle vehicle : vehicles) {
-            //Validaciónes por ID o placa igual
-            if (vehicle.equals(newVehicle) || vehicle.getLicensePlate().equals(newVehicle.getLicensePlate())) {
-                return false;
-            }
-        }
-        vehicles.add(newVehicle);
-        return true;
+    public boolean deleteByLicensePlate(String licensePlate) {
+
+        return vehicles.removeIf(vehicle -> vehicle.getLicensePlate().equals(licensePlate));
+
     }
 
-    //Eliminar vehículo por placa
-    public boolean deleteVehicleByLicensePlate(String licensePlate) {
-        for (Vehicle vehicle : vehicles) {
-            if (vehicle.getLicensePlate().equals(licensePlate)) {
-                vehicles.remove(vehicle);
-                return true;
-            }
-        }
-        return false;
-    }
 
     public void initRepo(){
         vehicles.add(new Vehicle("V001", "DER142", 5000, "Gasoline", "AS9483048294", "Marcopolo", 2010, "A001"));

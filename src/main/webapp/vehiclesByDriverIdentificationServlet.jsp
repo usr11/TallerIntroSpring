@@ -28,16 +28,16 @@
         if(driverId != null && !driverId.trim().isEmpty()){
             VehicleService vehicleService = AppContext.getInstance().getBean("vehicleService", VehicleService.class);
 
-            boolean hasVehicles = false;
-            for (Vehicle vehicle: vehicleService.getVehicles()){
-                if(vehicle.getDriverId().equals(driverId)){
+            ArrayList<Vehicle> vehicles = vehicleService.getVehiclesByDriverIdentification(driverId);
+
+            if (!vehicles.isEmpty()){
+                for (Vehicle vehicle: vehicles){
                     out.println("<p>Vehiculo: "+vehicle.getLicensePlate()+"</p>");
-                    hasVehicles = true;
                 }
+            } else {
+                out.println("<h4>No hay vehículos asignados a el numero de identificación: "+driverId+"</h4>");
             }
-            if(!hasVehicles){
-                out.println("<h4>No tiene vehículos</h4>");
-            }
+
 
         }
 

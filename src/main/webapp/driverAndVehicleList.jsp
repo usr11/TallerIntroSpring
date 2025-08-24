@@ -1,8 +1,9 @@
 <%@ page import="org.example.service.DriverService" %>
 <%@ page import="org.example.app.AppContext" %>
-<%@ page import="org.example.service.VehicleService" %>
 <%@ page import="org.example.model.Driver" %>
-<%@ page import="org.example.model.Vehicle" %><%--
+<%@ page import="org.example.model.Vehicle" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Map" %><%--
   Created by IntelliJ IDEA.
   User: 1108559698
   Date: 21/08/2025
@@ -19,21 +20,22 @@
 
 <%
     DriverService driverService =  AppContext.getInstance().getBean("driverService", DriverService.class);
-    VehicleService vehicleService =  AppContext.getInstance().getBean("vehicleService", VehicleService.class);
 
-    boolean hasVehicles = false;
+    Map<Driver, ArrayList<Vehicle>> data = driverService.getDriversWithVehicles();
+
     out.println("<ul>");
-    for(Driver driver: driverService.getDrivers()){
-        out.println("<li><h4>"+ driver.getName()+"<h4></li>");
+    for (Map.Entry<Driver, ArrayList<Vehicle>> entry : data.entrySet()) {
+        Driver driver = entry.getKey();
+        ArrayList<Vehicle> vehicles = entry.getValue();
 
-        for(Vehicle vehicle: vehicleService.getVehicles()){
-            if (vehicle.getDriverId().equals(driver.getId())){
-                out.println("<p>Vehiculo:"+ vehicle.getLicensePlate()+"<p>");
-                hasVehicles = true;
-            }
-        }
-        if (!hasVehicles) {
+        out.println("<li><h4>" + driver.getName() + "</h4></li>");
+
+        if (vehicles.isEmpty()) {
             out.println("<p><em>No tiene vehículos asignados</em></p>");
+        } else {
+            for (Vehicle vehicle : vehicles) {
+                out.println("<p>Vehiculo: " + vehicle.getLicensePlate() + "</p>");
+            }
         }
     }
     out.println("</ul>");

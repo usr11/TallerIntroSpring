@@ -22,12 +22,10 @@ public class AddVehicleServlet extends HttpServlet {
         vehicleService = AppContext.getInstance().getBean("vehicleService", VehicleService.class);
     }
 
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-        //Simplificar esto, como a el de driver
         String licensePlate = req.getParameter("licensePlate");
         String cylinderSizeStr = req.getParameter("cylinderSize");
         String fuelType = req.getParameter("fuelType");
@@ -47,7 +45,7 @@ public class AddVehicleServlet extends HttpServlet {
 
             req.setAttribute("message", "Todos los campos son obligatorios");
             req.setAttribute("messageType", "error");
-            doGet(req, resp);
+            req.getRequestDispatcher("/addVehicle.jsp").forward(req, resp);
             return;
         }
 
@@ -59,7 +57,7 @@ public class AddVehicleServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             req.setAttribute("message", "Cilindraje y Modelo deben ser números válidos");
             req.setAttribute("messageType", "error");
-            doGet(req, resp);
+            req.getRequestDispatcher("/addVehicle.jsp").forward(req, resp);
             return;
         }
 
@@ -67,12 +65,11 @@ public class AddVehicleServlet extends HttpServlet {
         boolean serviceResponse = vehicleService.addVehicle(new Vehicle(null, licensePlate.trim(), cylinderSize, fuelType.trim(), engineNumber.trim(), brand.trim(), model, driverId.trim()));
 
         req.setAttribute("messageType", serviceResponse ? "success" : "error");
-        req.setAttribute("message", serviceResponse ? "Vehículo agregado exitosamente" : "Error al agregar vehículo");
+        req.setAttribute("message", serviceResponse ? "Vehículo agregado exitosamente" : "Esta placa ya existe");
 
 
         req.getRequestDispatcher("/addVehicle.jsp").forward(req, resp);
 
-        //resp.sendRedirect("vehicles");
 
     }
 }

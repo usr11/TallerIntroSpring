@@ -62,8 +62,8 @@ public class Driver {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Driver){
-            Driver vehicle = (Driver) obj;
-            return id.equals(vehicle.getId());
+            Driver driver = (Driver) obj;
+            return id.equals(driver.getId());
         }
         return false;
     }

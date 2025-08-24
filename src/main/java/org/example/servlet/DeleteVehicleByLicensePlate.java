@@ -28,7 +28,7 @@ public class DeleteVehicleByLicensePlate extends HttpServlet {
         System.out.println(serviceResponse);
 
         req.setAttribute("messageType", serviceResponse ? "success" : "error");
-        req.setAttribute("message", serviceResponse ? "Vehículo borrado exitosamente" : "No se pudo eliminar el vehículo");
+        req.setAttribute("message", serviceResponse ? "Vehículo borrado exitosamente" : "No se pudo eliminar el vehículo, no existe");
 
         req.getRequestDispatcher("/deleteVehicleByLicensePlate.jsp").forward(req, resp);
 

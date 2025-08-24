@@ -1,10 +1,12 @@
 package org.example.service;
 
+
 import org.example.model.Vehicle;
 import org.example.repository.DriverRepository;
 import org.example.repository.VehicleRepository;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class VehicleService {
 
@@ -16,23 +18,22 @@ public class VehicleService {
         this.driverRepository = driverRepository;
     }
 
+
     public ArrayList<Vehicle> getVehicles() {
         return vehicleRepository.getVehicles();
     }
 
-    public boolean addVehicle(Vehicle vehicle) {
+    public boolean addVehicle(Vehicle newVehicle) {
 
-        //Validaciones
-        //Validación de placa
-        if (vehicle.getLicensePlate() == null || vehicle.getLicensePlate().length() < 6) {
-            return false;
-        }
-        //Validación de cilindraje
-        if (vehicle.getCylinderSize() <= 0) {
-            return false;
-        }
+        newVehicle.setId(UUID.randomUUID().toString());
 
-        return vehicleRepository.addVehicle(vehicle);
+        if(!vehicleRepository.existsByLicensePlate(newVehicle.getLicensePlate())){
+            vehicleRepository.addVehicle(newVehicle);
+            return true;
+        }
+        return false;
+
+
     }
 
     public Vehicle getVehicleByLicensePlate(String licensePlate) {
@@ -41,7 +42,21 @@ public class VehicleService {
 
     public boolean deleteVehicleByLicensePlate(String licensePlate){
 
-        return vehicleRepository.deleteVehicleByLicensePlate(licensePlate);
+        return vehicleRepository.deleteByLicensePlate(licensePlate);
 
     }
+
+    public ArrayList<Vehicle> getVehiclesByDriverIdentification(String driverIdentification){
+
+        ArrayList<Vehicle> result = new ArrayList<>();
+
+        for(Vehicle vehicle: vehicleRepository.getVehicles()){
+            if (vehicle.getDriverId().equals(driverIdentification)){
+                result.add(vehicle);
+            }
+        }
+        return result;
+
+    }
+
 }
