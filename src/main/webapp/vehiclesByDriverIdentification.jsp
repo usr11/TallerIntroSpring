@@ -1,8 +1,11 @@
-<%--
+<%@ page import="org.example.service.VehicleService" %>
+<%@ page import="org.example.app.AppContext" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="org.example.model.Vehicle" %><%--
   Created by IntelliJ IDEA.
   User: 1108559698
-  Date: 23/08/2025
-  Time: 11:28 p. m.
+  Date: 24/08/2025
+  Time: 11:05 a. m.
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -46,7 +49,7 @@
             max-width: 500px;
         }
 
-        input, button, select {
+        input, button {
             padding: 10px;
             border-radius: 10px;
             border: 1px solid #999;
@@ -69,35 +72,37 @@
     </style>
 </head>
 <body>
-  <h1>Agregar un nuevo conductor</h1>
-  <a href="./">Volver</a>
+    <h1>Vehículos de un conductor por su identificación</h1>
+    <a href="./">Volver</a>
+    <form>
+        <input name="driverId" placeholder="Numero de identificación">
+        <button>Buscar</button>
+    </form>
 
-  <form method="POST" action="addDriver">
-    <input type="text" name="name" placeholder="Nombre" required>
-    <input type="text" name="position" placeholder="Cargo" required>
-    <select name="typeOfIdentification" required>
-        <option value="" disabled selected>Seleccione una opción</option>
-        <option value="CC">Cédula</option>
-        <option value="TI">Tarjeta de identidad</option>
-        <option value="Pasaporte">Pasaporte</option>
-    </select>
-    <input type="text" name="identificationNumber" placeholder="Numero de identificacion" required>
-    <button>Agregar Conductor</button>
-  </form>
-  <%
+    <%
 
-    String messageType = (String) request.getAttribute("messageType");
-    String message = (String) request.getAttribute("message");
+        String driverId = (String) request.getParameter("driverId");
 
-    if(messageType != null && message != null){
-      if(messageType.equals("success")){
-        out.println("<div style='color:green'>"+message+"</div>");
-      } else {
-        out.println("<div style='color:red'>"+message+"</div>");
-      }
-    }
+        if(driverId != null && !driverId.trim().isEmpty()){
+            VehicleService vehicleService = AppContext.getInstance().getBean("vehicleService", VehicleService.class);
 
-  %>
+            ArrayList<Vehicle> vehicles = vehicleService.getVehiclesByDriverIdentification(driverId);
+
+            if (!vehicles.isEmpty()){
+                out.println("<h4>Vehiculos:</h4>");
+                for (Vehicle vehicle: vehicles){
+                    out.println("<p>"+vehicle.getLicensePlate()+"</p>");
+                }
+            } else {
+                out.println("<h4>No hay vehículos asignados a el numero de identificación: "+driverId+"</h4>");
+            }
+
+
+        }
+
+
+
+    %>
 
 </body>
 </html>

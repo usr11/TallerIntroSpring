@@ -28,7 +28,7 @@ public class AddDriverServlet extends HttpServlet {
         String name = req.getParameter("name");
         String position = req.getParameter("position");
         String typeOfIdentification = req.getParameter("typeOfIdentification");
-        String identificationNumber = req.getParameter("identificationNumber");
+        String identificationNumber = req.getParameter("identificationNumber").toUpperCase();
 
         if(name == null || name.trim().isEmpty()||
                 position == null || position.trim().isEmpty()||
@@ -38,6 +38,13 @@ public class AddDriverServlet extends HttpServlet {
             req.setAttribute("messageType", "error");
             req.setAttribute("message", "Todos los campos son obligatorios");
 
+            req.getRequestDispatcher("/addDriver.jsp").forward(req, resp);
+            return;
+        }
+
+        if(!identificationNumber.matches("^[a-zA-Z0-9]{6,15}$")){
+            req.setAttribute("message", "Formato de numero de identificación no valido");
+            req.setAttribute("messageType", "error");
             req.getRequestDispatcher("/addDriver.jsp").forward(req, resp);
             return;
         }

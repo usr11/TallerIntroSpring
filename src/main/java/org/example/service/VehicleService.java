@@ -27,10 +27,15 @@ public class VehicleService {
 
         newVehicle.setId(UUID.randomUUID().toString());
 
+        if(!newVehicle.getEngineNumber().matches("^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]{12}$")){
+            return false;
+        }
+
         if(!vehicleRepository.existsByLicensePlate(newVehicle.getLicensePlate())){
             vehicleRepository.addVehicle(newVehicle);
             return true;
         }
+
         return false;
 
 

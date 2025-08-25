@@ -26,7 +26,7 @@ public class AddVehicleServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-        String licensePlate = req.getParameter("licensePlate");
+        String licensePlate = req.getParameter("licensePlate").toUpperCase();
         String cylinderSizeStr = req.getParameter("cylinderSize");
         String fuelType = req.getParameter("fuelType");
         String engineNumber = req.getParameter("engineNumber");
@@ -44,6 +44,20 @@ public class AddVehicleServlet extends HttpServlet {
         ) {
 
             req.setAttribute("message", "Todos los campos son obligatorios");
+            req.setAttribute("messageType", "error");
+            req.getRequestDispatcher("/addVehicle.jsp").forward(req, resp);
+            return;
+        }
+
+        if(!licensePlate.matches("^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]{4,8}$")){
+            req.setAttribute("message", "Formato de placa no valido");
+            req.setAttribute("messageType", "error");
+            req.getRequestDispatcher("/addVehicle.jsp").forward(req, resp);
+            return;
+        }
+
+        if(!engineNumber.matches("^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9]{12}$")){
+            req.setAttribute("message", "Formato de numero de motor no valido, debe contener 12 caracteres alfanumericos");
             req.setAttribute("messageType", "error");
             req.getRequestDispatcher("/addVehicle.jsp").forward(req, resp);
             return;

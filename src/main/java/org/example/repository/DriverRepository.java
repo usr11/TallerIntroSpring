@@ -32,9 +32,9 @@ public class DriverRepository {
 
 
     public void initRepo(){
-        drivers.add(new Driver("A001", "Pablo", "Bus Driver", "CC", "1108559693"));
-        drivers.add(new Driver("A002", "Miguel", "Personal Driver", "CC", "1228351693"));
-        drivers.add(new Driver("A003", "Carlos", "Tow Truck Driver", "CC", "4118529293"));
+        drivers.add(new Driver("1294759249", "Pablo", "Bus Driver", "CC", "1108559693"));
+        drivers.add(new Driver("3418763908", "Miguel", "Personal Driver", "CC", "1228351693"));
+        drivers.add(new Driver("9472630969", "Carlos", "Tow Truck Driver", "CC", "4118529293"));
     }
 
 }
